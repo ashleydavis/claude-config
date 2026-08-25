@@ -13,7 +13,7 @@ Save the current plan to a markdown file in `docs/plans/new/`.
 <One paragraph describing the intent>
 
 ## Steps
-<Numbered list of implementation steps>
+<Numbered list of implementation steps. When the change needs documentation, step 1 is write documentation (then STOP and wait for human approval; revise later steps if the human revises the docs) and the last step is update documentation to match the final code.>
 
 ## Unit Tests
 <Unit tests to write or update>

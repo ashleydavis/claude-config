@@ -12,7 +12,7 @@ Check each of the following and report findings under labelled headings:
 
 **Tests** — Are unit tests and integration tests called out for each new or changed function? Are edge cases covered?
 
-**Docs** — Does the plan account for updating any relevant documentation, comments, or CLAUDE.md entries?
+**Docs** — If the change has a documented surface, is the first step write documentation (with a stop for human approval before later steps), and is the last step update documentation to match the final code? If the change has no documented surface, are both documentation steps absent? Are remaining plan steps required to be revised if the human revises the documentation?
 
 **Security** — Are there injection risks, auth gaps, secrets handling issues, or other OWASP-class problems introduced by the plan?
 

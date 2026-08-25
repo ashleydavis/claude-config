@@ -24,8 +24,10 @@ This command is for plans that have been broken into discrete step files (via `/
 
 10. **Report** — summarise what was implemented in this step, flag anything that was skipped or deferred, and tell the user which step (if any) is next.
 
+    **Documentation stop.** If the step just completed was "Write documentation" (the first step of a plan that needs docs), STOP here. Do not implement the next step. Tell the human the documentation is ready for review and wait for them to approve it. If they revise the documentation, revise the remaining plan steps to match, then wait for them to say to continue. Only after that approval may `/plan:imp-next` be run again. When the last step is "Update documentation", it revises the docs from step 1 to match the final code.
+
 ## Next
 
 Recommend the developer run:
-- `/plan:imp-next`: implement the next step, repeating until the plan is done.
+- `/plan:imp-next`: implement the next step, repeating until the plan is done. After a write-documentation step, do not run this until the human has approved the documentation (and remaining steps have been revised if they changed the docs).
 - `/verify`: once all steps are done.

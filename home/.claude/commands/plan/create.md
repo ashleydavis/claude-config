@@ -8,6 +8,11 @@ Create a new plan and save it to `docs/plans/`.
 
 3. **Draft the plan** — produce a complete plan using the structure below. Be specific: name actual files, functions, types, and interfaces. Steps should be small enough to implement one at a time. **Write all steps as instructions for an AI agent to execute, not a human** — steps should describe precise code changes, file edits, and tool actions, not manual UI interactions or things a person would do. Plans may include interface, class, and function signatures where helpful. Do not include actual implementation code unless describing a particularly difficult algorithm. Requirements should be described as text or bullet points, not code.
 
+    **Documentation steps.** Many plans need documentation. Not all do. If the change is something a later reader would need documented (user-facing behaviour, public API, config, commands, or similar), the plan must start with a documentation step and end with a documentation-update step. Skip both when the change has no documented surface (for example an internal-only refactor). If it is not clear, ask the human.
+
+    - **First step: write documentation.** Draft the documentation for the feature or change as it is intended to work, naming the actual doc files to create or update, so the human can read it and understand what they are getting before any code is written. This step must tell the executing agent to STOP when the draft is written: do not continue to later steps. Wait for the human to review and approve the documentation. The human may revise the documentation. Those revisions must be reflected as revisions to the remaining plan steps before implementation continues.
+    - **Last step: update documentation.** After the code is in place, revise the documentation from step 1 so it matches the final code, including anything that changed during implementation.
+
 ```
 # <Plan Title>
 
@@ -18,7 +23,7 @@ Create a new plan and save it to `docs/plans/`.
 <Leave empty — populated later by plan:check>
 
 ## Steps
-<Numbered list of concrete implementation steps, each naming the file and function to change. Each step that produces code must require that the code compiles (or type-checks / builds cleanly for the language) and that tests pass before it is complete: every new or changed function gets a unit test, and behaviour gets an e2e/smoke test where possible. Exception: React components, contexts, and hooks are not unit tested but must be covered by an e2e test.>
+<Numbered list of concrete implementation steps, each naming the file and function to change. When the change needs documentation, step 1 is write documentation (then STOP and wait for human approval; revise later steps if the human revises the docs) and the last step is update documentation to match the final code. Each step that produces code must require that the code compiles (or type-checks / builds cleanly for the language) and that tests pass before it is complete: every new or changed function gets a unit test, and behaviour gets an e2e/smoke test where possible. Exception: React components, contexts, and hooks are not unit tested but must be covered by an e2e test.>
 
 ## Unit Tests
 <List of unit tests to write or update — one per new or changed function. Every function must have a unit test. Exception: React components, contexts, and hooks are not unit tested (cover them with end-to-end tests instead).>

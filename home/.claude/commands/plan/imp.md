@@ -19,16 +19,19 @@ Implement the current plan.
 
 4. **Create a todo list** — use TodoWrite to break the plan into discrete tasks, then work through them one by one, marking each complete as you go.
 
-5. **Write tests** — add or update unit tests and smoke tests for every new or changed function as described in the plan.
+5. **Documentation stop** — if the plan's first step is write documentation, do that step and then STOP. Do not start later steps. Do not write tests, verify, or move the plan. Tell the human the documentation is ready for review and wait for them to approve it. If they revise the documentation, revise the remaining plan steps to match, then wait for them to say to continue. Only after that approval may you implement later steps. The last step, when present, updates the documentation to match the final code.
 
-6. **Verify** — once all steps are done, run `/verify` to confirm the full test suite and compile checks pass.
+6. **Write tests** — add or update unit tests and smoke tests for every new or changed function as described in the plan.
 
-7. **Move the plan** — move the plan file (and the plans "steps" directory if it has one) from `docs/plans/new/` to `docs/plans/done/`.
+7. **Verify** — once all steps are done, run `/verify` to confirm the full test suite and compile checks pass.
 
-8. **Report** — summarise what was implemented and flag anything that was skipped or deferred.
+8. **Move the plan** — move the plan file (and the plans "steps" directory if it has one) from `docs/plans/new/` to `docs/plans/done/`.
+
+9. **Report** — summarise what was implemented and flag anything that was skipped or deferred.
 
 ## Next
 
 Recommend the developer run:
-- `/verify`: run all quality checks.
+- After a write-documentation step, wait for the human to approve the docs (and revise remaining plan steps if they changed the docs) before continuing implementation.
+- `/verify`: run all quality checks once implementation is complete.
 - `/commit:detz`: once checks pass, produce a commit message.
