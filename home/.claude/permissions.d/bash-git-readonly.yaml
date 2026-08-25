@@ -113,6 +113,15 @@ bash:
         allow:
           - git rev-list --count HEAD
 
+    merge-base:
+      decide: allow
+      reason: Readonly git access (finds the common ancestor of two commits, or answers whether one contains the other, no state changes)
+      examples:
+        allow:
+          - git merge-base main feature
+          - git merge-base --is-ancestor HEAD main
+          - git merge-base --fork-point origin/main
+
     tag:
       options:
         - l|list
