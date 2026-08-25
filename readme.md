@@ -104,6 +104,31 @@ The one argument is the `.claude` directory holding the rules, and the rules loa
 
 The `/permissions:examples:*` commands do this from inside any project, over the global rules plus that project's own `.claude` rules: `setup` writes examples for rules that have none, `add` records one command against the rule that decides it, and `test` runs the check. See [their readme](home/.claude/commands/permissions/examples/README.txt).
 
+## Turning the plugin off in one repo
+
+Global hooks in `home/.claude/settings.json` always run. Claude's `bypassPermissions` mode does **not** skip them. A project cannot remove user hooks by setting `hooks` in `.claude/settings.json`; those arrays merge.
+
+From inside a repo, `/permission:bypass:on` writes `.claude/settings.local.json` (bypass + plugin off). `/permission:bypass:off` removes those keys. Both touch only that file, never global config. Start a new Claude session after either command.
+
+To skip expressive-permissions by hand, put this in that repo's `.claude/settings.local.json`:
+
+```json
+{
+  "permissions": {
+    "defaultMode": "bypassPermissions"
+  },
+  "env": {
+    "EXPRESSIVE_PERMISSIONS": "off"
+  }
+}
+```
+
+You need both: `bypassPermissions` stops Claude's own prompts; `EXPRESSIVE_PERMISSIONS=off` stops the plugin. The plugin still has to be a version that honours that env var.
+
+`disableAllHooks: true` in the same file also works, but it turns off every hook for that repo, not only permissions.
+
+Do not set `bypassPermissions` in this global `settings.json`. Enable it only in the repos that need it.
+
 ## Cursor troubleshooting
 
 Notes from hardening Agent shell approvals. Prefer Cursor's docs over memory when something drifts.
