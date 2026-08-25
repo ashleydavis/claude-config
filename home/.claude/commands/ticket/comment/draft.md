@@ -12,6 +12,8 @@ Draft a Jira ticket comment as a local markdown file for review. Post nothing.
 
    Put a short header block at the top with the ticket key, its URL, and a `Status: draft` line. Everything below that is the comment body exactly as it will be posted.
 
+   **Write the body as ordinary markdown. Never wrap it in a code fence.** A fenced body is displayed as source rather than rendered, so the links, headings and bullets the human is meant to be reviewing are unreadable, and editing it means editing inside a block. The header block already marks where the body starts, so nothing needs to fence it off.
+
    Keep the body concise and Jira ready: what changed, why it matters for this ticket, and links to PRs and docs. Omit secrets, credentials, internal hostnames, account ids, and anything else that does not belong in a ticket comment.
 
    **Clickable links (required):** Atlassian markdown does not reliably auto-link bare URLs. Every URL must use markdown link form `[label](url)`, for example `[some-repo#28](https://github.com/some-org/some-repo/pull/28)`. Never paste a bare `https://...` URL. Never wrap a URL in backticks, that makes it unclickable.
@@ -24,3 +26,4 @@ Draft a Jira ticket comment as a local markdown file for review. Post nothing.
 - Never invent a ticket key, a PR link, or work that was not done.
 - Never put secrets, credentials, internal hostnames or account ids in the draft.
 - Every URL uses `[label](url)`. No bare URLs, no URLs in backticks.
+- Never put the comment body in a code fence, in the draft file or when showing it in the reply.
