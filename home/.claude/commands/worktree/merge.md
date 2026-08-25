@@ -24,14 +24,9 @@ Steps:
    ```
    Run this. Do not decide up front that it will be refused because you are in a worktree. After running, verify the main branch HEAD has advanced by checking `git -C <main-repo-path> log --oneline -1` and confirming it matches the worktree's tip commit.
 
-   If, and only if, that command is actually refused because the session cannot reach the main checkout, do the same fast-forward with a push, which runs entirely inside the worktree:
-   ```
-   git -C <worktree-path> config receive.denyCurrentBranch updateInstead
-   git -C <worktree-path> push . <worktree-branch>:<current-branch>
-   ```
-   The `receive.denyCurrentBranch` setting is what lets the push land on a branch that is checked out in the main worktree: without it git refuses, and with it git also updates the main checkout's index and working tree to match, which is the same end state `merge --ff-only` produces. It is repository-level config shared by every worktree, so setting it once is enough, and it must be set in the config rather than passed with `-c`, because only the receiving side reads it. The main checkout must have no uncommitted changes for the push to update it; if it does, git refuses and says so, and that is a genuine stop, not something to work around. Verify with `git -C <worktree-path> rev-parse <current-branch>` and confirm it matches the worktree's tip commit.
+   **`receive.denyCurrentBranch` is banned. Never set it, in any scope, for any reason, including to get this step to work.** Pushing into a checked-out branch was once suggested here as a fallback, and it is not one: the setting is repository-level, every worktree shares it, and it outlives the merge that introduced it, so a one-off workaround silently changes what every later push into this repository does. It is also a git configuration change, which is banned on its own terms.
 
-   If both fail, report the exact git error and stop.
+   If the fast-forward is refused, report the exact git error and stop. A merge that cannot be completed is the human's to unblock, and the most likely reason is worth saying plainly: the main checkout has uncommitted changes, and nothing here may commit, stash or discard them.
 
 7. Remove the worktree:
    ```
