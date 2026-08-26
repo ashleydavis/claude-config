@@ -37,6 +37,16 @@ git:
           arity: 1
           kind: string
           description: Merge commit message
+    worktree:
+      flags:
+        b:
+          arity: 1
+          kind: string
+          description: New branch to create for the worktree
+        B:
+          arity: 1
+          kind: string
+          description: Branch to create or reset for the worktree
     checkout:
       flags:
         b:

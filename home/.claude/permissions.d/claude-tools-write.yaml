@@ -47,6 +47,10 @@ ExitWorktree:
   examples:
     allow:
       - tool ExitWorktree
-    ask:
-      # Entering a worktree is not covered by any rule.
+
+EnterWorktree:
+  decide: allow
+  reason: Moves the session into an existing worktree; changes no file and is undone by ExitWorktree
+  examples:
+    allow:
       - tool EnterWorktree

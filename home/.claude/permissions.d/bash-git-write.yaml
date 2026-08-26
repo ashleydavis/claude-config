@@ -1,11 +1,139 @@
 # Git operations that change state. Destructive ones are denied.
 #
-# checkout, switch, rebase, commit, merge and push carry no rule: nothing matches them, so they
+# checkout, switch, commit and push carry no rule: nothing matches them, so they
 # fall through to the engine's default and still prompt. They are not written as `ask` rules
 # because `ask` outranks `allow` (src/ast-nodes/ast-node.ts: abstain < allow < ask < deny), so an
 # `ask` here would beat a project's own `allow` and no project could ever authorise them.
+#
+# The rules below allow one flow and nothing else: finish a branch in a scratch worktree under
+# .claude/worktrees/, fast-forward the main checkout's current branch onto it, then throw the
+# worktree and the branch away. Every step is restricted to the form that cannot lose work, and
+# each one's dangerous sibling (a conflicting merge, --force, -D) is left to prompt as before.
+#
+# `-C` chooses the repository git acts on, and `cwd` describes only where the shell is, so a rule
+# anchored to `cwd` alone would allow the same command aimed at any other repository on the machine.
+# Each rule that could be redirected that way is written twice: once for the plain form, which `cwd`
+# does describe, and once for the `-C` form with the flag pinned to this project.
 bash:
   git:
+    # A rebase inside a worktree under .claude/worktrees/ rewrites only that worktree's own branch.
+    # The main checkout and the branch being rebased onto are left alone, so the history at risk is
+    # confined to a branch that exists to be thrown away. Anywhere else, rebase still prompts.
+    # --exec runs arbitrary commands and --onto/--root can drop commits, so those keep prompting too.
+    rebase:
+      cwd-in:
+        - "**/.claude/worktrees/*"
+        - "**/.claude/worktrees/*/**"
+      not:
+        options-in: [i|interactive, exec, onto, root]
+      decide: allow
+      reason: Rebase a scratch worktree's own branch
+      examples:
+        allow:
+          - cmd: git rebase main
+            cwd: .claude/worktrees/feature
+        ask:
+          # Outside a worktree, and the flags that reach beyond the worktree's own branch.
+          - git rebase main
+          - cmd: git rebase --exec "make test" main
+            cwd: .claude/worktrees/feature
+          - cmd: git rebase --onto main~3 main
+            cwd: .claude/worktrees/feature
+
+    # --ff-only can only move the current branch to a commit that already contains it, so there is
+    # no merge commit to review, no conflict to land in, and nothing rewritten. Every other merge
+    # form, --no-ff and a bare `git merge` included, is left to prompt.
+    merge:
+      - not:
+          options-in: [C]
+        options:
+          ff-only: true
+        cwd: ${{PROJECT_DIR}}/**
+        decide: allow
+        reason: Fast-forward only, so it cannot conflict or rewrite
+        examples:
+          allow:
+            - git merge harden-tests --ff-only
+          ask:
+            - git merge harden-tests
+            - git merge --no-ff harden-tests
+
+      - options:
+          ff-only: true
+          C: ${{PROJECT_DIR}}
+        decide: allow
+        reason: Fast-forward only, in this project, so it cannot conflict or rewrite
+        examples:
+          allow:
+            - git -C /project merge harden-tests --ff-only
+          ask:
+            # Another repository entirely, which -C reaches and cwd does not describe.
+            - git -C /somewhere/else merge harden-tests --ff-only
+
+    worktree:
+      # Adding a worktree creates a directory and a branch that did not exist and touches nothing
+      # that did. -B resets a branch that already exists and --force reuses one checked out
+      # elsewhere, so both of those still prompt.
+      add:
+        cmd: ${{PROJECT_DIR}}/.claude/worktrees/*
+        not:
+          options-in: [B, f|force]
+        decide: allow
+        reason: Create a scratch worktree on a new branch
+        examples:
+          allow:
+            - git worktree add -b feature .claude/worktrees/feature main
+          ask:
+            - git worktree add -B feature .claude/worktrees/feature main
+            - git worktree add --force .claude/worktrees/feature main
+            - git worktree add -b feature ../outside-the-project main
+
+      # Removing a worktree deletes its directory and leaves its branch alone, and git refuses while
+      # the directory holds uncommitted or untracked work. --force drops that refusal, so it prompts.
+      remove:
+        cmd: ${{PROJECT_DIR}}/.claude/worktrees/*
+        not:
+          options-in: [f|force]
+        decide: allow
+        reason: Remove a scratch worktree, which git refuses while work is unsaved
+        examples:
+          allow:
+            - git worktree remove .claude/worktrees/feature
+          ask:
+            - git worktree remove --force .claude/worktrees/feature
+            - git worktree remove ../some-other-worktree
+
+    # Lowercase -d deletes a branch only when its commits are already reachable elsewhere, so
+    # nothing is lost. -D, and -d alongside --force, delete unmerged commits and still prompt.
+    branch:
+      - not:
+          options-in: [C, D, f|force]
+        options:
+          d|delete: true
+        cwd: ${{PROJECT_DIR}}/**
+        decide: allow
+        reason: Deletes only a branch git has confirmed is merged
+        examples:
+          allow:
+            - git branch -d harden-tests
+          ask:
+            - git branch -D harden-tests
+            - git branch -d --force harden-tests
+
+      - not:
+          options-in: [D, f|force]
+        options:
+          d|delete: true
+          C: ${{PROJECT_DIR}}
+        decide: allow
+        reason: Deletes only a branch git has confirmed is merged, in this project
+        examples:
+          allow:
+            - git -C /project branch -d harden-tests
+          ask:
+            # Another repository entirely, which -C reaches and cwd does not describe.
+            - git -C /somewhere/else branch -d harden-tests
+
     stash:
       decide: deny
       reason: Avoid losing uncommitted work

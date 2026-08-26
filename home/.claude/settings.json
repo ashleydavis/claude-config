@@ -1,6 +1,5 @@
 {
   "permissions": {
-    "defaultMode": "acceptEdits",
     "allow": [
       "Bash",
       "Read",
@@ -16,11 +15,9 @@
       "ExitPlanMode",
       "BashOutput",
       "KillShell"
-    ]
+    ],
+    "defaultMode": "acceptEdits"
   },
-  "autoMemoryEnabled": false,
-  "tui": "default",
-  "skipDangerousModePermissionPrompt": true,
   "hooks": {
     "PreToolUse": [
       {
@@ -44,5 +41,9 @@
         ]
       }
     ]
-  }
+  },
+  "tui": "default",
+  "autoMemoryEnabled": false,
+  "skipDangerousModePermissionPrompt": true,
+  "agentPushNotifEnabled": true
 }

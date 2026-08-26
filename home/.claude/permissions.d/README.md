@@ -14,7 +14,7 @@ Files are discovered in lexicographic order. A `deny` in any file wins over `all
 | `bash-npm-readonly.yaml` | Allow readonly `npm` subcommands (`ls`, `config get`, `root`, `pkg get`, etc.) and `npx` version/help |
 | `bash-gh-readonly.yaml` | Allow readonly `gh` subcommands (view, list, status, checks, etc.) |
 | `bash-git-readonly.yaml` | Allow readonly `git` subcommands (log, diff, status, show, etc.) |
-| `bash-git-write.yaml` | Deny destructive git ops; require approval for commit, push, rebase, etc. |
+| `bash-git-write.yaml` | Deny destructive git ops; allow the worktree merge flow (`rebase` in a worktree, `merge --ff-only`, `worktree remove`, `branch -d`); require approval for commit, push, checkout, etc. |
 | `bash-helm-readonly.yaml` | Allow readonly `helm` subcommands (get, list, show, status, etc.) |
 | `bash-kubectl-readonly.yaml` | Allow readonly `kubectl` subcommands (get, describe, logs, top, etc.) |
 | `bash-mkdir-write.yaml` | Allow `mkdir` within the current project or `/tmp` |
