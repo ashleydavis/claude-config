@@ -11,3 +11,7 @@ Follow the runsheet style guide available in `~/notes`. Do not invent a parallel
 3. **Do not publish to Confluence** as part of this command unless the human explicitly asks. Creating the local draft is the default deliverable. If they want it live after review, use `/runsheet/publish`.
 
 4. **Report.** Path to the new file and any open questions still blocking a publish-ready runsheet.
+
+## Hard stops
+
+- Never use em dashes in the draft. Use a period, comma, colon, or parentheses instead.

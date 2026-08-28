@@ -15,6 +15,10 @@ Given the root cause and the chosen proposed fix from this conversation, produce
 
 4. **Report** — state the filename where the plan was saved.
 
+## Hard stops
+
+- Never use em dashes in the plan. Use a period, comma, colon, or parentheses instead.
+
 ## Next
 
 Recommend the developer run:

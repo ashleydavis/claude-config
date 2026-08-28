@@ -1,6 +1,6 @@
 Create a new plan and save it to `docs/plans/`.
 
-**Important:** You are drafting this plan for an AI agent (Claude) to execute later — not for a human. Do not write steps a human would follow. Write steps as precise AI actions: file edits, function changes, tool calls, and code modifications with exact file paths and names.
+**Important:** You are drafting this plan for an AI agent (Claude) to execute later, not for a human. Do not write steps a human would follow. Write steps as precise AI actions: file edits, function changes, tool calls, and code modifications with exact file paths and names.
 
 1. **Gather intent** — if the user has described the feature or change in this conversation, use that. Otherwise ask: "What do you want to plan?" Wait for their answer before continuing.
 
@@ -43,6 +43,10 @@ Create a new plan and save it to `docs/plans/`.
 5. **Save** — write the plan to `docs/plans/new/<filename>`.
 
 6. **Report** — print the path of the saved file and a one-line summary of what the plan covers.
+
+## Hard stops
+
+- Never use em dashes in the plan. Use a period, comma, colon, or parentheses instead.
 
 ## Next
 

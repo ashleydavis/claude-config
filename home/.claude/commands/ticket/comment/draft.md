@@ -27,3 +27,4 @@ Draft a Jira ticket comment as a local markdown file for review. Post nothing.
 - Never put secrets, credentials, internal hostnames or account ids in the draft.
 - Every URL uses `[label](url)`. No bare URLs, no URLs in backticks.
 - Never put the comment body in a code fence, in the draft file or when showing it in the reply.
+- Never use em dashes in the draft. Use a period, comma, colon, or parentheses instead.

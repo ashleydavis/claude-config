@@ -30,6 +30,10 @@ Save the current plan to a markdown file in `docs/plans/new/`.
 
 4. **Report** — print the path of the saved file.
 
+## Hard stops
+
+- Never use em dashes in the plan. Use a period, comma, colon, or parentheses instead.
+
 ## Next
 
 Recommend the developer run:

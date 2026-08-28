@@ -20,6 +20,8 @@ Describe the change as it stands in this repository, not its history elsewhere. 
 
 Output all three clearly labelled so the user can review them. Do not commit anything - just produce the text.
 
+Never use em dashes in the commit message or description. Use a period, comma, colon, or parentheses instead.
+
 **Never put the commit description inside a fenced code block, and never hard-wrap it.** A fenced block is not soft-wrapped by the terminal, so a paragraph written as one long line runs off the right edge and cannot be read. Write the description as ordinary prose in the reply, one long line per paragraph with a blank line between paragraphs, and let the terminal soft-wrap it to whatever width the reader has. The same text goes into the commit unwrapped. The one-line commit message is short enough that a code block is fine for it if you want the user to copy it.
 
 **Files to be committed** - discover all relevant git repos (the current repo plus any others involved in the work), then for each repo run `git diff --cached --name-only` and `git diff --name-only` to get staged and unstaged tracked changes. Group the results by repo, showing the repo root path as a header and listing each file beneath it on its own line. Skip repos with no changes.

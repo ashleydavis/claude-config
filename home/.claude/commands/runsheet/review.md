@@ -13,3 +13,7 @@ Find and read that guide before reviewing. Do not invent a parallel style.
 4. **Do not publish to Confluence** unless the human explicitly asks; if they do, use `/runsheet/publish`.
 
 5. **Report.** Path updated, main fixes applied, and any remaining open questions.
+
+## Hard stops
+
+- Never use em dashes in the draft. Use a period, comma, colon, or parentheses instead.

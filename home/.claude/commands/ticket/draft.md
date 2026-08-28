@@ -71,4 +71,5 @@ These are decided here, not at publish time. `/ticket:publish` only enforces the
 - Never finish a draft without story points and acceptance criteria.
 - Never put secrets, credentials, internal hostnames or account ids in the draft.
 - Every URL uses `[label](url)`. No bare URLs, no URLs in backticks.
+- Never use em dashes in the draft. Use a period, comma, colon, or parentheses instead.
 - Never put a local file that will stay local in any section that will be published. Relative links, `docs/plans/…`, ticket working directories, `~/…`, and `file://` are dead on Jira. Exception: the target is itself a draft that will be published online. Then the local link may appear in a publishable section, marked as a local draft, and **must** be rewritten to the live `https://` URL after that draft is published. Files that will never get a public URL belong only in **Notes for me, not for the ticket**.

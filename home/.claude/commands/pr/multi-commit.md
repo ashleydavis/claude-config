@@ -28,6 +28,10 @@ Only if a single Jira ticket key is **obvious** (for example the branch is clear
 3. If they request revisions, update the draft and show it again. Repeat until they explicitly approve.
 4. Only after explicit approval, continue to Create and open.
 
+## Hard stops
+
+- Never use em dashes in the drafted title or body. Use a period, comma, colon, or parentheses instead.
+
 ## Create and open
 
 1. Create the PR with `gh pr create --title "..." --body "..."` (HEREDOC for the body), using the approved title and body. Base branch as appropriate.
