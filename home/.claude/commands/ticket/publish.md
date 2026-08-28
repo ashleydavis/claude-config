@@ -31,13 +31,15 @@ The defaults (Story, lowest priority, story points and acceptance criteria prese
 
    Keep every URL as `[label](url)`. Send it with `contentFormat: "markdown"`.
 
+   If any remaining publishable section still points at a local file that will stay local (working notes, implementation plans, checkouts, `~/…`, `file://`), stop and move that reference into Notes or drop it. A local path is allowed only when it is itself a draft due to be published online. Leave those in the payload only if you will replace them with the live `https://` URL in this same run; otherwise stop and publish the other draft first, or publish this ticket and come back to edit the link.
+
 6. **Create it.** Call `createJiraIssue`, then create any links the Related work section calls for, using `getIssueLinkTypes` first if the link type is not obvious, and set the parent epic if the draft names one. Report the issue key and its browse URL, nothing more.
 
    A custom field declared as a plain text area may still be rejected unless it is sent as Atlassian Document Format. If the create fails with "not valid Atlassian Document Format (ADF) content", resend that field as an ADF document object rather than a string. Do not drop the field to make the call succeed.
 
 7. **Open it in Chrome.** Run `google-chrome --new-window <browse url>` so the human can check the created issue straight away. The fields that were mapped by id are worth seeing rendered, and a mistake is far easier to fix in the first minute than later.
 
-8. **Record it.** Add the created issue key and URL to the top of the draft file so the local file and the Jira issue stay connected.
+8. **Record it.** Add the created issue key and URL to the top of the draft file so the local file and the Jira issue stay connected. If any other local draft (this one, or another ticket/doc draft) still links to this file by path, replace that path with the new browse URL. If that other draft is already on Jira, edit the published issue so the reader gets the live link, not the working-directory path.
 
 ## When to stop and ask
 
@@ -61,3 +63,4 @@ Everything else proceeds without asking.
 - Never guess a `customfield_*` id from memory. Read it from the issue type metadata for that project.
 - Never assume the body landed somewhere a reader will see it. Confirm the field is on the issue type's screen.
 - Never post bare or backtick-wrapped URLs. Always `[label](url)`.
+- Never publish a local file that will stay local. Related work and the description may only link `https://` URLs a reader can open from Jira, except a local draft that is about to be published — and that path must be replaced with the live URL as soon as it exists.

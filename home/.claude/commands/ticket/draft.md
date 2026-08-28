@@ -57,8 +57,8 @@ These are decided here, not at publish time. `/ticket:publish` only enforces the
    - **Implementation notes**: constraints, things that will bite, follow-ups worth splitting out.
    - **Test plan**: unit tests, then a **Smoke tests** subsection. Cover the fix, the deploy or runtime path as well as the validation path, the message text and not just the failure, and a passing case that proves the new error is not over-eager.
    - **Acceptance criteria**: one bullet per observable outcome. Name the custom field it goes into.
-   - **Related work**: linked tickets, PRs and change requests, each as `[label](url)`.
-   - **Notes for me, not for the ticket**: everything that must not be published. Source staleness and the commit you read, anything you could not verify, findings nobody in the thread has seen yet and should be told about first, and fields still marked TBC.
+   - **Related work**: linked tickets, PRs and change requests, each as `[label](url)`. The `url` must be an `https://` address a reader can open from Jira, **or** a local file that is itself a draft due to be published online (another `*-ticket-draft.md`, a Confluence draft, a doc that will get a public URL). Mark those as local drafts so publish can replace the path with the live URL once it exists. Working files that will never be published (implementation plans, notes, checkouts) do not go here.
+   - **Notes for me, not for the ticket**: everything that must not be published. Source staleness and the commit you read, anything you could not verify, findings nobody in the thread has seen yet and should be told about first, fields still marked TBC, and pointers to local files that will stay local.
 
 8. **Report.** Print the file path and a short summary of what you found that the original report did not. If the scope you uncovered is bigger than the story points suggest, say so rather than quietly resizing it.
 
@@ -71,3 +71,4 @@ These are decided here, not at publish time. `/ticket:publish` only enforces the
 - Never finish a draft without story points and acceptance criteria.
 - Never put secrets, credentials, internal hostnames or account ids in the draft.
 - Every URL uses `[label](url)`. No bare URLs, no URLs in backticks.
+- Never put a local file that will stay local in any section that will be published. Relative links, `docs/plans/…`, ticket working directories, `~/…`, and `file://` are dead on Jira. Exception: the target is itself a draft that will be published online. Then the local link may appear in a publishable section, marked as a local draft, and **must** be rewritten to the live `https://` URL after that draft is published. Files that will never get a public URL belong only in **Notes for me, not for the ticket**.
