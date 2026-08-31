@@ -1,0 +1,23 @@
+# Slash commands and personal skills live in agent-skills, not this package.
+# A local ignore file replaces Stow's built-in list, so the defaults stay too.
+^/\.claude/commands
+^/\.cursor/commands
+^/\.claude/skills
+^/\.cursor/skills
+
+RCS
+.+,v
+CVS
+\.\#.+
+\.cvsignore
+\.svn
+_darcs
+\.hg
+\.git
+\.gitignore
+\.gitmodules
+.+~
+\#.*\#
+^/README.*
+^/LICENSE.*
+^/COPYING

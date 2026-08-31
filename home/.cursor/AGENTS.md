@@ -1,7 +1,9 @@
 # Cursor Instructions
 
 - Guessing is banned. Never guess. Never tell the human "I'll stop guessing now".
-- Shared config in this repo: edit slash commands only under `home/.claude/commands/` (`home/.cursor/commands` is a symlink to that tree). Keep this file and `home/.claude/CLAUDE.md` aligned in the same edit when shared rules change; adapt only where they intentionally differ (titles, Cursor-specific vs Claude-specific lines).
+- Keep this file and `home/.claude/CLAUDE.md` aligned in the same edit when shared rules change; adapt only where they intentionally differ (titles, Cursor-specific vs Claude-specific lines).
+- If the human asks you to create a personal skill or command, those do not belong in this repo. They belong in agent-skills (`~/skills/agent-skills`) instead. Company and team skills belong in the package they are working in, not in agent-skills.
+- When the human asks you to make a skill, they mean a slash command. Do not create a `skills/*/SKILL.md` unless they explicitly ask for a skill file rather than a command.
 - Never use memory. Do not read, write, or update any memory files.
 - Never use em dashes. Use a period, comma, colon, or parentheses instead.
 - The word "shape" is banned, in prose and in code comments. Say what you actually mean: "not a plain object", "laid out like", "how the curve grows", "what most of these tests need".

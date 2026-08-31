@@ -1,6 +1,8 @@
 # agent-config
 
-Personal Claude Code and Cursor global configuration: instructions, settings, slash commands, and permissions rules.
+**Skills and slash commands have moved** to [`~/skills/agent-skills`](https://github.com/ashleydavis/agent-skills). Install them with `skl -g add ashleydavis/agent-skills --ns me`.
+
+Personal Claude Code and Cursor global configuration: instructions, settings, and permissions rules.
 
 ## Layout
 
@@ -10,18 +12,12 @@ home/
 │   ├── CLAUDE.md          # Global Claude instructions
 │   ├── settings.json      # Claude Code settings (permissions, hooks)
 │   ├── permissions.yaml   # Top-level permissions config
-│   ├── permissions.d/     # Modular permissions rules (compiled into settings)
-│   └── commands/          # Shared slash commands (single copy)
+│   └── permissions.d/     # Modular permissions rules (compiled into settings)
 └── .cursor/
-    ├── AGENTS.md          # Global Cursor instructions
-    └── commands/          # Symlink -> ../.claude/commands
+    └── AGENTS.md          # Global Cursor instructions
 ```
 
 The `home/` subdirectory is the GNU Stow "package". Its contents are symlinked into `$HOME`.
-
-Edit slash commands only under `home/.claude/commands/`. `home/.cursor/commands` is a relative symlink to that tree, so both tools get the same commands after bootstrap.
-
-Built-in Cursor skills live in `~/.cursor/skills-cursor/` and are managed by Cursor. Do not put personal skills there. Put them under `home/.cursor/skills/` in this repo instead.
 
 ## Prerequisites
 
@@ -101,8 +97,6 @@ bun run check-config ../agent-config/home
 ```
 
 The one argument is the `.claude` directory holding the rules, and the rules load from there. The examples themselves are decided against a stand-in project directory, `/project`: that is what `${{PROJECT_DIR}}` expands to while checking, what a relative `cwd` resolves against, and the working directory an example runs in unless it names its own. It does not have to exist, which is why no example in this repo names a directory belonging to one machine. Add `--filter <text>` to check one file or one command, and `--list` to print the collected examples without checking them.
-
-The `/permissions:examples:*` commands do this from inside any project, over the global rules plus that project's own `.claude` rules: `setup` writes examples for rules that have none, `add` records one command against the rule that decides it, and `test` runs the check. See [their readme](home/.claude/commands/permissions/examples/README.txt).
 
 ## Turning the plugin off in one repo
 
